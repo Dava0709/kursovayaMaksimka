@@ -1,46 +1,62 @@
 # FoodAdapter
 
-FoodAdapter — современный учебный веб-сайт доставки еды на Flask, HTML5, CSS3, JavaScript и Bootstrap 5.
+FoodAdapter — современный веб-проект доставки еды на Flask, HTML5, CSS3, JavaScript и Bootstrap 5.
 
 ## О проекте
 
-Проект реализован как Flask-приложение с маршрутизацией, шаблонами Jinja2 и статическими файлами в папке static/.
+В корне проекта находится Flask-приложение с динамическим сервером, шаблонами Jinja2 и API для корзины.
 
-## Как запустить локально
+### Локальный запуск Flask
 
-1. Откройте PowerShell в папке проекта.
-2. Создайте виртуальное окружение и активируйте его:
+1. Откройте PowerShell в корне проекта.
+2. Создайте и активируйте виртуальное окружение:
 
-`powershell
+```powershell
 python -m venv .venv
 .venv\Scripts\activate
-`
+```
 
 3. Установите зависимости:
 
-`powershell
+```powershell
 pip install -r requirements.txt
-`
+```
 
 4. Запустите приложение:
 
-`powershell
+```powershell
 python run.py
-`
+```
 
 5. Откройте в браузере:
 
+```
 http://127.0.0.1:5000
+```
 
-## Важно
+## GitHub Pages
 
-- Это Flask-приложение, поэтому для работы нужен сервер Python.
-- GitHub Pages не подходит для запуска Flask-приложений.
-- Если нужно показать проект на паре, запускайте его локально через python run.py.
+GitHub Pages не может запускать Flask-сервер. Поэтому для GitHub Pages добавлен статический демо-сайт в папке docs/.
+
+### Статический сайт на GitHub Pages
+
+- Содержимое docs/ доступно как статический сайт.
+- Чтобы открыть на GitHub Pages, в настройках репозитория установите источник Pages на docs/.
+- После этого сайт будет доступен по адресу:
+
+```
+https://Dava0709.github.io/kursovayaMaksimka/
+```
+
+### Что будет доступно на GitHub Pages
+
+- Статическая главная страница с дизайном вашего проекта.
+- Статические страницы cart.html и checkout.html.
+- Динамическая корзина и реальный серверный Checkout работать не будут.
 
 ## Структура проекта
 
-`	ext
+```text
 FoodAdapter/
   adapters/
   models/
@@ -49,12 +65,19 @@ FoodAdapter/
     css/
     js/
   templates/
+  docs/
+    index.html
+    cart.html
+    checkout.html
+    css/
+      style.css
+    .nojekyll
   app.py
   run.py
   requirements.txt
   README.md
-`
+```
 
-## Адрес репозитория
+## Репозиторий
 
 https://github.com/Dava0709/kursovayaMaksimka
