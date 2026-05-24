@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}FoodAdapter - умная доставка еды{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <span class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> Доставка на основе адаптеров</span>
+            <h1>FoodAdapter</h1>
+            <p class="hero-slogan">Быстрая доставка с умными адаптерами</p>
+            <p class="hero-text">Заказывайте еду через единый удобный интерфейс. За кулисами классы Adapter преобразуют каждый заказ под Glovo, Wolt или Yandex Delivery.</p>
+            <div class="hero-actions">
+                <a href="#menu" class="btn btn-dark btn-lg">Заказать</a>
+                <a href="#adapter" class="btn btn-outline-dark btn-lg">Посмотреть паттерн</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80" alt="Стол с блюдами для доставки">
+            <div class="floating-card delivery-card">
+                <i class="fa-solid fa-route"></i>
+                <span>3 сервиса, 1 интерфейс</span>
+            </div>
+            <div class="floating-card time-card">
+                <strong>18 мин</strong>
+                <span>среднее время</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad categories-strip">
+    <div class="container">
+        <div class="category-grid">
+            {% for category in categories %}
+            <div class="category-pill">
+                <i class="fa-solid {{ category.icon }}"></i>
+                <span>{{ category.name }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="restaurants" class="section-pad">
+    <div class="container">
+        <div class="section-heading">
+            <span>Популярные места</span>
+            <h2>Рестораны рядом с вами</h2>
+        </div>
+        <div class="row g-4">
+            {% for restaurant in restaurants %}
+            <div class="col-md-4">
+                <article class="restaurant-card glass-card">
+                    <div>
+                        <span class="restaurant-tag">{{ restaurant.tag }}</span>
+                        <h3>{{ restaurant.name }}</h3>
+                    </div>
+                    <div class="restaurant-meta">
+                        <span><i class="fa-solid fa-star"></i> {{ restaurant.rating }}</span>
+                        <span><i class="fa-regular fa-clock"></i> {{ restaurant.time }}</span>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="menu" class="section-pad menu-section">
+    <div class="container">
+        <div class="section-heading">
+            <span>Популярные блюда</span>
+            <h2>Свежая подборка на сегодня</h2>
+        </div>
+        <div class="row g-4">
+            {% for item in menu_items %}
+            <div class="col-sm-6 col-lg-4">
+                <article class="food-card">
+                    <div class="food-image-wrap">
+                        <img src="{{ item.image }}" alt="{{ item.name }}">
+                        <span>{{ item.category }}</span>
+                    </div>
+                    <div class="food-body">
+                        <h3>{{ item.name }}</h3>
+                        <p>{{ item.description }}</p>
+                        <div class="food-footer">
+                            <strong>{{ item.price }} тг</strong>
+                            <button class="btn btn-dark add-to-cart" data-id="{{ item.id }}">
+                                <i class="fa-solid fa-plus"></i>
+                                Добавить
+                            </button>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="adapter" class="section-pad adapter-section">
+    <div class="container">
+        <div class="adapter-panel glass-card">
+            <div>
+                <span class="eyebrow">Паттерн проектирования</span>
+                <h2>Один checkout. Три несовместимых API доставки.</h2>
+                <p>FoodAdapter вызывает `deliver_order(order)`. Выбранный адаптер переводит этот запрос в нужный метод провайдера: Glovo, Wolt или Yandex Delivery.</p>
+            </div>
+            <div class="adapter-flow">
+                <div>Клиент</div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div>DeliveryAdapter</div>
+                <i class="fa-solid fa-arrow-right"></i>
+                <div>Внешний сервис</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-pad benefits-section">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="benefit-item">
+                    <i class="fa-solid fa-gauge-high"></i>
+                    <h3>Быстрый заказ</h3>
+                    <p>Корзина обновляется мгновенно, есть управление количеством и понятная итоговая сумма.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-item">
+                    <i class="fa-solid fa-shield-heart"></i>
+                    <h3>Чистая архитектура</h3>
+                    <p>Сервисы, модели и адаптеры разделены, чтобы проект было удобно изучать.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="benefit-item">
+                    <i class="fa-solid fa-mobile-screen"></i>
+                    <h3>Адаптивный интерфейс</h3>
+                    <p>Сайт аккуратно работает на телефонах и больших экранах.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container d-flex flex-column flex-md-row justify-content-between gap-3">
+        <strong>FoodAdapter</strong>
+        <span>Современный демо-сервис доставки еды с паттерном Adapter.</span>
+    </div>
+</footer>
+{% endblock %}

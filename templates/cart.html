@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Корзина - FoodAdapter{% endblock %}
+
+{% block content %}
+<section class="cart-hero">
+    <div class="container">
+        <span class="eyebrow">Оформление</span>
+        <h1>Ваша корзина</h1>
+    </div>
+</section>
+
+<section class="section-pad">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-8">
+                <div class="cart-list glass-card" id="cart-list">
+                    {% if cart["items"] %}
+                        {% for item in cart["items"] %}
+                        <div class="cart-item" data-id="{{ item.id }}">
+                            <img src="{{ item.image }}" alt="{{ item.name }}">
+                            <div class="cart-item-info">
+                                <h3>{{ item.name }}</h3>
+                                <span>{{ item.price }} тг</span>
+                            </div>
+                            <div class="quantity-control">
+                                <button class="quantity-btn" data-action="minus"><i class="fa-solid fa-minus"></i></button>
+                                <input type="number" value="{{ item.quantity }}" min="1">
+                                <button class="quantity-btn" data-action="plus"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                            <strong>{{ item.subtotal }} тг</strong>
+                            <button class="remove-btn" title="Удалить"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <div class="empty-cart">
+                            <i class="fa-solid fa-bag-shopping"></i>
+                            <h2>Корзина пуста</h2>
+                            <p>Добавьте блюда из меню, чтобы протестировать оформление заказа через паттерн Adapter.</p>
+                            <a href="{{ url_for('index') }}#menu" class="btn btn-dark">Вернуться к меню</a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <aside class="checkout-card glass-card">
+                    <h2>Ваш заказ</h2>
+                    <div class="summary-line">
+                        <span>Блюд</span>
+                        <strong id="summary-count">{{ cart.count }}</strong>
+                    </div>
+                    <div class="summary-line total">
+                        <span>Итого</span>
+                        <strong id="summary-total">{{ cart.total }} тг</strong>
+                    </div>
+
+                    <form method="post" action="{{ url_for('checkout') }}">
+                        <label class="form-label">Имя клиента</label>
+                            <input class="form-control" name="customer_name" value="Гость FoodAdapter" required>
+
+                        <label class="form-label mt-3">Адрес доставки</label>
+                        <input class="form-control" name="address" value="Центр города, 24" required>
+
+                        <label class="form-label mt-3">Служба доставки</label>
+                        <div class="delivery-options">
+                            <label><input type="radio" name="delivery_service" value="glovo" checked> Glovo</label>
+                            <label><input type="radio" name="delivery_service" value="wolt"> Wolt</label>
+                            <label><input type="radio" name="delivery_service" value="yandex"> Yandex Delivery</label>
+                        </div>
+                        <button class="btn btn-dark w-100 btn-lg mt-4 checkout-button" {% if not cart["items"] %}disabled{% endif %}>
+                            <span class="button-text">Оформить заказ</span>
+                            <span class="spinner-border spinner-border-sm d-none"></span>
+                        </button>
+                    </form>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

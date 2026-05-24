@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Статус заказа - FoodAdapter{% endblock %}
+
+{% block content %}
+<section class="status-page">
+    <div class="container">
+        <div class="status-card glass-card">
+            <div class="status-icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <span class="eyebrow">Результат адаптера</span>
+            <h1>{{ adapter_name }}</h1>
+            <p>Ваш заказ преобразован под выбранную службу доставки.</p>
+
+            <div class="log-box">
+                {% for message in messages %}
+                <div><i class="fa-solid fa-terminal"></i> {{ message }}</div>
+                {% endfor %}
+            </div>
+
+            <a href="{{ url_for('index') }}" class="btn btn-dark btn-lg mt-4">На главную</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
